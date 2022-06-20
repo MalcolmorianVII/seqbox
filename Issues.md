@@ -5,7 +5,7 @@
 **Description:**
 * ERROR: Could not find a version that satisfies the requirement python-graphviz (from versions: none)
 
-**Solution**
+**Solution:**
 * python-graphviz not found in pyPI.Therefore removed it from the requirements.txt
 
 # Issue 2:flask installations
@@ -16,26 +16,23 @@
 *Problems:*
 Conda env issue i.e the seqbox env not being activated when running the script.
 
-*Solution*
+*Solution:*
 Changed the python interpreter on VSCode
 
 # Issue 3: Changing paths
-Relative paths issue for test bash scripts
-Made the following changes:
+* Made the following changes:
 	1. test/test_no_web.py to  test_no_web.py
 	2. /src/scripts/seqbox_cmd.py to  ../src/scripts/seqbox_cmd.py
-	3.  /src/scripts/seqbox_filehandling.py to  /src/scripts/seqbox_filehandling.py
-	
-Changed from /Users/flashton/Dropbox/non-project/test_input_data/20201201_1355_MN33881_FAO20804_109641e0/fast5_pass  TO /Users/malcolmorian/Documents/Bioinformatics/Projects2022/seq_service/data
+	3. /src/scripts/seqbox_filehandling.py to  /src/scripts/seqbox_filehandling.py
+    4. test/06.test to 06.test
+    5. test/test_seqbox_config.yaml to test_seqbox_config.yaml
+    6. /Users/flashton/Dropbox/non-project/test_input_data/20201201_1355_MN33881_FAO20804_109641e0/fast5_pass  TO /Users/malcolmorian/Documents/Bioinformatics/Projects2022/seq_service/data
 
-Other changes 
-Replace test/06.test to 06.test
-Replace test/test_seqbox_config.yaml to test_seqbox_config.yaml
 
-*Data to download*
-20201201_1355_MN33881_FAO20804_109641e0
-20210601_1134_DK-111231_0_FAO09894_ba56ad3
-Illumina_batch_1
+**Data to download**
+* 20201201_1355_MN33881_FAO20804_109641e0
+* 20210601_1134_DK-111231_0_FAO09894_ba56ad3
+* Illumina_batch_1
 
 # Issue 4:  test2 quagmire
 Command ./run_test_02.sh
