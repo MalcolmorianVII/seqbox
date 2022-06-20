@@ -28,21 +28,23 @@ Changed the python interpreter on VSCode
     5. test/test_seqbox_config.yaml to test_seqbox_config.yaml
     6. /Users/flashton/Dropbox/non-project/test_input_data/20201201_1355_MN33881_FAO20804_109641e0/fast5_pass  TO /Users/malcolmorian/Documents/Bioinformatics/Projects2022/seq_service/data
 
+# Issue 4:  test2 
+**Command:**
+`./run_test_02.sh`
 
-**Data to download**
-* 20201201_1355_MN33881_FAO20804_109641e0
-* 20210601_1134_DK-111231_0_FAO09894_ba56ad3
-* Illumina_batch_1
-
-# Issue 4:  test2 quagmire
-Command ./run_test_02.sh
-
-*Error:*
+**Error:**
 File "/Users/malcolmorian/Documents/Bioinformatics/Projects2022/seq_service/seqbox/test/../src/scripts/seqbox_filehandling.py", line 72, in run_add_readset_to_filestructure
     add_readset_to_filestructure(readset_nanopre.readset, config)
 AttributeError: 'NoneType' object has no attribute 'readset'
 
-Suggestion: None == False equals False hence giving error
+**Suggestion:**
+``` if not readset_nanopre :
+                print(f"There is no readset for\n{readset_info}\nExiting.")
+                sys.exit()
+            else:
+                add_readset_to_filestructure(readset_nanopre.readset, config)
+```
+ None == False equals False hence giving error
 
 Solution: Changed to  if not readset_nanopre :
 
