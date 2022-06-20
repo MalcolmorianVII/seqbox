@@ -60,6 +60,9 @@ def add_readset_batches(args):
 def add_readsets(args):
     all_readsets_info = read_in_as_dict(args.readsets_inhandle)
     for readset_info in all_readsets_info:
+        # print("---READSET_INFO")
+        # print(readset_info)
+        # break
         if basic_check_readset_fields(readset_info) is False:
             continue
         if get_readset(readset_info, args.covid) is False:
