@@ -62,24 +62,24 @@ if not readset_nanopre :
 >>> None is False
 False
 ```
-None is False equals False hence giving error
+**None is False equals False.**
 Therefore to account for NoneType cases in readset_nanopre we need to negate it for the if statement on line  to evaluate to True hence to exit program 
 
 # Issue 5: Test 3
 
- File "/Users/malcolmorian/Documents/Bioinformatics/Projects2022/seq_service/seqbox/src/scripts/seqbox_utils.py", line 286, in read_in_extraction
-    if extraction_info['extraction_processing_institution'] != '':
-KeyError: 'extraction_processing_institution'
+**File:** "src/scripts/seqbox_utils.py"
+**Line: 286**
+**Code:** in read_in_extraction
+`if extraction_info['extraction_processing_institution'] != '':`
+**KeyError: 'extraction_processing_institution'**
 
-Printing extraction_info gives the following:
-
----------Extraction info------------
+**Diagnosis**
+* Printing extraction_info gives the following:
+>
 {'sample_identifier': 'PTS15G_sample1', 'extraction_identifier': '1', 'extraction_machine': 'QiaSymphony', 'extraction_kit': 'MiniKit', 'what_was_extracted': 'DNA', 'date_extracted': '01/06/2021', 'processing_institution': 'MLW', 'group_name': 'Core', 'extraction_from': 'isolate'}
----------Extraction info------------
+>
 
-Solution: There is no extraction_processing_institution BUT processing institution therefore change lines 289 & 290 of seqbox_utils.py to reflect the correct key in the dict
-STATUS:Run successfully!!!
-
+Solution: There is no extraction_processing_institution BUT processing institution therefore change line 1 in extraction.csv from processing_institution TO extraction_processing_institution
 
 # Issue 6 : TEST 4
 
