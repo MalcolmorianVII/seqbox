@@ -283,8 +283,8 @@ def read_in_extraction(extraction_info):
         extraction.what_was_extracted = extraction_info['what_was_extracted']
     if extraction_info['date_extracted'] != '':
         extraction.date_extracted = datetime.datetime.strptime(extraction_info['date_extracted'], '%d/%m/%Y')
-    if extraction_info['extraction_processing_institution'] != '':
-        extraction.processing_institution = extraction_info['extraction_processing_institution']
+    if extraction_info['processing_institution'] != '':
+        extraction.processing_institution = extraction_info['processing_institution']
     if extraction_info['extraction_from'] != '':
         extraction.extraction_from = extraction_info['extraction_from']
     return extraction
@@ -989,7 +989,14 @@ def basic_check_readset_fields(readset_info):
     # it looks like the readset is totally missing, which would be the case in teh combined input file if the
     # covid confirmatory pcr was negative.
     to_check = ['barcode', 'data_storage_device', 'readset_batch_name']
+    print("------Printing readset info-------")
+    print(readset_info)
+    print("------Printing readset info-------")
+    has_barcode = readset_info.get('barcode',False)
     for r in to_check:
+        if not has_barcode:
+            print("Illumina batch no need for a barcode")
+            return 
         if readset_info[r].strip() == '':
             print(f'Warning - {r} column should not be empty. it is for \n{readset_info}.')
             return False
