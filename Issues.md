@@ -1,14 +1,16 @@
+# Issue Tracker
+
 ## Issue 1:No matching distribution found for python-graphviz
 
-*Description:*
-ERROR: Could not find a version that satisfies the requirement python-graphviz (from versions: none)
+**Description:**
+* ERROR: Could not find a version that satisfies the requirement python-graphviz (from versions: none)
 
-*Solution*
-python-graphviz not found in pyPI.Therefore removed it from the requirements.txt
+**Solution**
+* python-graphviz not found in pyPI.Therefore removed it from the requirements.txt
 
 # Issue 2:flask installations
-*Description:*
-It seems all the packages installed through pip are here:
+**Description:**
+* It seems all the packages installed through pip are here:
 /Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages
 
 *Problems:*
@@ -82,7 +84,6 @@ Solution:
 ------Printing readset info-------
 
 Suggestion: Readset info dict does not have a barcode Key. BUT these two functions :
-
 
 basic_check_readset_fields(readset_info) & 
 
