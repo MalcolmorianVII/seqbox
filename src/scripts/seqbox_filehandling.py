@@ -18,7 +18,7 @@ def add_readset_to_filestructure(readset, config):
     1. Check that input files exist
     2. get readset_identifier-filename for this sample
     3. check that output dir exists (make it if not)
-        a. will be /Users/flashton/Dropbox/non-project/test_seqbox_data/Core/[readset_identifier]-filename/
+        a. will be /Users/malcolmorian/Documents/Bioinformatics/Projects2022/seq_service/data/Core/[readset_identifier]-filename/
     4. link the fastq to the output_dir
     '''
     if readset.raw_sequencing.raw_sequencing_batch.sequencing_type == 'nanopore':
@@ -65,7 +65,7 @@ def run_add_readset_to_filestructure(args):
             continue
         if args.nanopore_default is True:
             readset_nanopre = get_nanopore_readset_from_batch_and_barcode(readset_info)
-            if readset_nanopre is False:
+            if not readset_nanopre :
                 print(f"There is no readset for\n{readset_info}\nExiting.")
                 sys.exit()
             else:
