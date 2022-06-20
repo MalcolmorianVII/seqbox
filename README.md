@@ -60,9 +60,9 @@ extraction identifier of the corresponding extraction. if it is covid then
 need the tiling pcr date.
 * negative controls/negative extractions should be assigned to sample sources and 
 samples wiht the identifier "Neg_ex" (the underscore is important as sample names become 
-paths, so shouldn't have spaces etc. they will all be grouped togehter into
+paths, so shouldn't have spaces etc. they will all be grouped together into
 those samples/sample sources, but will of course have different extractions. 
-they can be assigned to thge same project/group as the run (or arbitrary, doesnt matter). 
+they can be assigned to the same project/group as the run (or arbitrary, doesnt matter). 
 
 ### covid confirmatory pcrs & other PCRs
 
@@ -90,7 +90,7 @@ extraction identifier of the corresponding extraction.
 
 ### merging
 
-* If want to merge a couple of readsets of teh same extract, then need to make a 
+* If want to merge a couple of readsets of the same extract, then need to make a 
 new readset batch, then a bunch of new readsets.
 
 ### adding artic nf results
