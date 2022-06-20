@@ -38,7 +38,8 @@ File "/Users/malcolmorian/Documents/Bioinformatics/Projects2022/seq_service/seqb
 AttributeError: 'NoneType' object has no attribute 'readset'
 
 **Suggestion:**
-``` if not readset_nanopre :
+``` 
+if not readset_nanopre :
                 print(f"There is no readset for\n{readset_info}\nExiting.")
                 sys.exit()
             else:
