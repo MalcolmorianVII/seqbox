@@ -69,7 +69,7 @@ Solution: There is no extraction_processing_institution BUT processing instituti
 STATUS:Run successfully!!!
 
 
-TEST 4
+# Issue 6 : TEST 4
 
  File "/Users/malcolmorian/Documents/Bioinformatics/Projects2022/seq_service/seqbox/src/scripts/seqbox_utils.py", line 993, in basic_check_readset_fields
     if readset_info[r].strip() == '':
