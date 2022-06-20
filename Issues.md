@@ -38,6 +38,17 @@ File "/Users/malcolmorian/Documents/Bioinformatics/Projects2022/seq_service/seqb
 AttributeError: 'NoneType' object has no attribute 'readset'
 
 **Suggestion:**
+Instead of the code being like this:
+
+```
+if readset_nanopre is False :
+                print(f"There is no readset for\n{readset_info}\nExiting.")
+                sys.exit()
+            else:
+                add_readset_to_filestructure(readset_nanopre.readset, config)
+```
+This conditional should read like this:
+
 ``` 
 if not readset_nanopre :
                 print(f"There is no readset for\n{readset_info}\nExiting.")
@@ -45,15 +56,14 @@ if not readset_nanopre :
             else:
                 add_readset_to_filestructure(readset_nanopre.readset, config)
 ```
- None == False equals False hence giving error
+**Reason**
 
-Solution: Changed to  if not readset_nanopre :
-
-Now it reads like this:
-
-There is no readset for
-{'sample_identifier': 'CMT15I', 'date_tiling_pcred': '01/06/2021', 'tiling_pcr_identifier': '1', 'date_extracted': '', 'extraction_identifier': '', 'group_name': 'Core', 'barcode': 'barcode01', 'data_storage_device': 'local', 'readset_batch_name': '20201201_1355_MN33881_FAO20804_109641e0'}
-Exiting.
+```
+>>> None is False
+False
+```
+None is False equals False hence giving error
+Therefore to account for NoneType cases in readset_nanopre we need to negate it for the if statement on line  to evaluate to True hence to exit program 
 
 # Issue 5: Test 3
 
