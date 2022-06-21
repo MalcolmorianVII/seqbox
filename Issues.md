@@ -77,11 +77,11 @@ KeyError: 'extraction_processing_institution
 
 **Diagnosis**
 * Printing extraction_info gives the following:
->
-{'sample_identifier': 'PTS15G_sample1', 'extraction_identifier': '1', 'extraction_machine': 'QiaSymphony', 'extraction_kit': 'MiniKit', 'what_was_extracted': 'DNA', 'date_extracted': '01/06/2021', 'processing_institution': 'MLW', 'group_name': 'Core', 'extraction_from': 'isolate'}
->
 
-**Solution:** There is no extraction_processing_institution BUT processing institution therefore change line 1 in extraction.csv from processing_institution TO extraction_processing_institution
+{'sample_identifier': 'PTS15G_sample1', 'extraction_identifier': '1', 'extraction_machine': 'QiaSymphony', 'extraction_kit': 'MiniKit', 'what_was_extracted': 'DNA', 'date_extracted': '01/06/2021', 'processing_institution': 'MLW', 'group_name': 'Core', 'extraction_from': 'isolate'}
+
+
+**Solution:** Change line 1 in extraction.csv from processing_institution TO extraction_processing_institution
 
 # Issue 6 : TEST 4
 
