@@ -230,6 +230,12 @@ def get_pangolin_result(pangolin_result_info):
 
 def read_in_sample_info(sample_info):
     check_samples(sample_info)
+    # add date_collected key here i.e concatenating 3 fields
+    # DMY collected
+    day = sample_info['day_collected']
+    mon = sample_info['month_collected']
+    yr = sample_info['year_collected']
+    date_collected = datetime.datetime.strptime(f'{day}/{mon}/{yr}',"%d/%m/%Y")
     sample = Sample(sample_identifier=sample_info['sample_identifier'])
     if sample_info['species'] != '':
         sample.species = sample_info['species']
@@ -249,6 +255,7 @@ def read_in_sample_info(sample_info):
         sample.month_received = sample_info['month_received']
     if sample_info['year_received'] != '':
         sample.year_received = sample_info['year_received']
+    sample.date_collected = date_collected
     return sample
 
 
@@ -283,8 +290,8 @@ def read_in_extraction(extraction_info):
         extraction.what_was_extracted = extraction_info['what_was_extracted']
     if extraction_info['date_extracted'] != '':
         extraction.date_extracted = datetime.datetime.strptime(extraction_info['date_extracted'], '%d/%m/%Y')
-    if extraction_info['processing_institution'] != '':
-        extraction.processing_institution = extraction_info['processing_institution']
+    if extraction_info['extraction_processing_institution'] != '':
+        extraction.processing_institution = extraction_info['extraction_processing_institution']
     if extraction_info['extraction_from'] != '':
         extraction.extraction_from = extraction_info['extraction_from']
     return extraction
@@ -422,7 +429,6 @@ def read_in_pcr_result(pcr_result_info):
     if pcr_result_info['pcr_result'] != '':
         pcr_result.pcr_result = pcr_result_info['pcr_result']
     return pcr_result
-
 
 def add_sample(sample_info):
     # sample_info is a dict of one line of the input csv (keys from col header)
@@ -988,15 +994,8 @@ def basic_check_readset_fields(readset_info):
     # need two flavours of check read set fields, this one is to not try and make a readset record when
     # it looks like the readset is totally missing, which would be the case in teh combined input file if the
     # covid confirmatory pcr was negative.
-    to_check = ['barcode', 'data_storage_device', 'readset_batch_name']
-    print("------Printing readset info-------")
-    print(readset_info)
-    print("------Printing readset info-------")
-    has_barcode = readset_info.get('barcode',False)
+    to_check = ['data_storage_device', 'readset_batch_name']
     for r in to_check:
-        if not has_barcode:
-            print("Illumina batch no need for a barcode")
-            return 
         if readset_info[r].strip() == '':
             print(f'Warning - {r} column should not be empty. it is for \n{readset_info}.')
             return False
