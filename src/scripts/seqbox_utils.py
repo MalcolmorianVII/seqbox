@@ -255,7 +255,8 @@ def read_in_sample_info(sample_info):
         sample.month_received = sample_info['month_received']
     if sample_info['year_received'] != '':
         sample.year_received = sample_info['year_received']
-    sample.date_collected = date_collected
+    if date_collected != '':
+        sample.date_collected = date_collected
     return sample
 
 
