@@ -232,10 +232,17 @@ def read_in_sample_info(sample_info):
     check_samples(sample_info)
     # add date_collected key here i.e concatenating 3 fields
     # DMY collected
-    day = sample_info['day_collected']
-    mon = sample_info['month_collected']
-    yr = sample_info['year_collected']
-    date_collected = datetime.datetime.strptime(f'{day}/{mon}/{yr}',"%d/%m/%Y")
+    day_collected,month_collected,year_collected = sample_info['day_collected'],sample_info['month_collected'],sample_info['year_collected']
+    date_collected = datetime.datetime.strptime(f'{day_collected}/{month_collected}/{year_collected}',"%d/%m/%Y")
+    
+    # DMY received
+    day_received,mon_received,yr_received = sample_info['day_received'],sample_info['month_received'],sample_info['year_received']
+    # Check for null values
+    if day_received and mon_received and yr_received:
+        date_received = datetime.datetime.strptime(f'{day_received}/{mon_received}/{yr_received}',"%d/%m/%Y")
+    else:
+        date_received = None
+    
     sample = Sample(sample_identifier=sample_info['sample_identifier'])
     if sample_info['species'] != '':
         sample.species = sample_info['species']
@@ -244,19 +251,21 @@ def read_in_sample_info(sample_info):
     if sample_info['sample_source_identifier'] != '':
         sample.sample_source_id = sample_info['sample_source_identifier']
     if sample_info['day_collected'] != '':
-        sample.day_collected = sample_info['day_collected']
+        sample.day_collected = day_collected
     if sample_info['month_collected'] != '':
-        sample.month_collected = sample_info['month_collected']
+        sample.month_collected = month_collected
     if sample_info['year_collected'] != '':
-        sample.year_collected = sample_info['year_collected']
+        sample.year_collected = year_collected
     if sample_info['day_received'] != '':
-        sample.day_received = sample_info['day_received']
+        sample.day_received = day_received
     if sample_info['month_received'] != '':
-        sample.month_received = sample_info['month_received']
+        sample.month_received = mon_received
     if sample_info['year_received'] != '':
-        sample.year_received = sample_info['year_received']
+        sample.year_received = yr_received
     if date_collected != '':
         sample.date_collected = date_collected
+    if date_received != '':
+        sample.date_received = date_received
     return sample
 
 
