@@ -8,6 +8,7 @@ from sqlalchemy.orm import backref  # relationship
 from sqlalchemy.schema import Sequence, UniqueConstraint
 from sqlalchemy.ext.hybrid import hybrid_property
 from werkzeug.security import generate_password_hash, check_password_hash
+import flask_migrate
 
 
 class User(UserMixin, db.Model):
@@ -189,10 +190,11 @@ class Sample(db.Model):
     day_collected = db.Column(db.Integer, comment="day of the month this was collected")
     month_collected = db.Column(db.Integer, comment="month this was collected")
     year_collected = db.Column(db.Integer, comment="year this was collected")
-    date_collected = db.Column(db.DateTime,nullable=True)
+    date_collected = db.Column(db.DateTime,nullable=True,comment="DMY sample was collected")
     day_received = db.Column(db.Integer, comment="day of the month this was received")
     month_received = db.Column(db.Integer, comment="month this was received")
     year_received = db.Column(db.Integer, comment="year this was received")
+    date_received = db.Column(db.DateTime,nullable=True,comment="DMY the sample was received")
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
     processing_institution = db.Column(db.VARCHAR(60), comment="The institution which processed the sample.")
     # locations = db.relationship("Location", backref=backref("sample", passive_updates=True, passive_deletes=True))
