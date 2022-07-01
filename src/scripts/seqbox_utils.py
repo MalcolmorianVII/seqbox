@@ -227,6 +227,19 @@ def get_pangolin_result(pangolin_result_info):
               f"and workflow {pangolin_result_info['artic_workflow']}. Shouldn't happen, exiting.")
         sys.exit(1)
 
+def validate_dates(day,mon,yr):
+    if day and mon and yr:
+        date_col = datetime.datetime.strptime(f'{day}/{mon}/{yr}',"%d/%m/%Y")
+    elif not day and  mon and yr:
+        date_col = datetime.datetime.strptime(f'{mon}/{yr}',"%m/%Y")
+    elif not day and not mon and yr:
+        date_col = datetime.datetime.strptime(f'{yr}',"%Y")
+    elif day and mon and not yr:
+        date_col = None
+    else:
+        date_col = None
+    return date_col
+
 
 def read_in_sample_info(sample_info):
     check_samples(sample_info)
@@ -238,10 +251,7 @@ def read_in_sample_info(sample_info):
     # DMY received
     day_received,mon_received,yr_received = sample_info['day_received'],sample_info['month_received'],sample_info['year_received']
     # Check for null values
-    if day_received and mon_received and yr_received:
-        date_received = datetime.datetime.strptime(f'{day_received}/{mon_received}/{yr_received}',"%d/%m/%Y")
-    else:
-        date_received = None
+    date_received = validate_dates(day_received,mon_received,yr_received)
     
     sample = Sample(sample_identifier=sample_info['sample_identifier'])
     if sample_info['species'] != '':
