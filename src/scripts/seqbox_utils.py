@@ -243,14 +243,12 @@ def validate_dates(day,mon,yr):
 
 def read_in_sample_info(sample_info):
     check_samples(sample_info)
-    # add date_collected key here i.e concatenating 3 fields
-    # DMY collected
+    # DMY collected & Check for null values
     day_collected,month_collected,year_collected = sample_info['day_collected'],sample_info['month_collected'],sample_info['year_collected']
-    date_collected = datetime.datetime.strptime(f'{day_collected}/{month_collected}/{year_collected}',"%d/%m/%Y")
+    date_collected = validate_dates(day_collected,month_collected,year_collected)
     
-    # DMY received
+    # DMY received & Check for null values
     day_received,mon_received,yr_received = sample_info['day_received'],sample_info['month_received'],sample_info['year_received']
-    # Check for null values
     date_received = validate_dates(day_received,mon_received,yr_received)
     
     sample = Sample(sample_identifier=sample_info['sample_identifier'])
@@ -274,6 +272,8 @@ def read_in_sample_info(sample_info):
         sample.year_received = yr_received
     if date_collected != '':
         sample.date_collected = date_collected
+    if day_received != '':
+        sample.day_received = day_received
     if date_received != '':
         sample.date_received = date_received
     return sample
