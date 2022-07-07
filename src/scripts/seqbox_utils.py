@@ -227,9 +227,29 @@ def get_pangolin_result(pangolin_result_info):
               f"and workflow {pangolin_result_info['artic_workflow']}. Shouldn't happen, exiting.")
         sys.exit(1)
 
+def read_in_date(day,mon,yr):
+    if day and mon and yr:
+        date_col = datetime.datetime.strptime(f'{day}/{mon}/{yr}',"%d/%m/%Y")
+    elif not day and  mon and yr:
+        date_col = datetime.datetime.strptime(f'{mon}/{yr}',"%m/%Y")
+    elif not day and not mon and yr:
+        date_col = datetime.datetime.strptime(f'{yr}',"%Y")
+    elif day and mon and not yr:
+        date_col = None
+    else:
+        date_col = None
+    return date_col
 
 def read_in_sample_info(sample_info):
     check_samples(sample_info)
+    # DMY collected & Check for null values
+    day_collected,month_collected,year_collected = sample_info['day_collected'],sample_info['month_collected'],sample_info['year_collected']
+    date_collected = read_in_date(day_collected,month_collected,year_collected)
+    
+    # DMY received & Check for null values
+    day_received,month_received,year_received = sample_info['day_received'],sample_info['month_received'],sample_info['year_received']
+    date_received = read_in_date(day_received,month_received,year_received)
+
     sample = Sample(sample_identifier=sample_info['sample_identifier'])
     if sample_info['species'] != '':
         sample.species = sample_info['species']
@@ -237,18 +257,22 @@ def read_in_sample_info(sample_info):
         sample.sample_type = sample_info['sample_type']
     if sample_info['sample_source_identifier'] != '':
         sample.sample_source_id = sample_info['sample_source_identifier']
-    if sample_info['day_collected'] != '':
-        sample.day_collected = sample_info['day_collected']
-    if sample_info['month_collected'] != '':
-        sample.month_collected = sample_info['month_collected']
-    if sample_info['year_collected'] != '':
-        sample.year_collected = sample_info['year_collected']
-    if sample_info['day_received'] != '':
-        sample.day_received = sample_info['day_received']
-    if sample_info['month_received'] != '':
-        sample.month_received = sample_info['month_received']
-    if sample_info['year_received'] != '':
-        sample.year_received = sample_info['year_received']
+    if day_collected != '':
+        sample.day_collected = day_collected
+    if month_collected != '':
+        sample.month_collected = month_collected
+    if year_collected != '':
+        sample.year_collected = year_collected
+    if day_received != '':
+        sample.day_received = day_received
+    if month_received != '':
+        sample.month_received = month_received
+    if year_received != '':
+        sample.year_received = year_received
+    if date_collected != '':
+        sample.date_collected = date_collected
+    if date_received != '':
+        sample.date_received = date_received
     return sample
 
 
