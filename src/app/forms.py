@@ -52,10 +52,10 @@ class SampleForm(FlaskForm):
         if sample is not None:
             raise ValidationError('Please use a different id_sample.')
     
-    def validate_num_reads(self,num_reads):
-        sample =Sample.query.filter_by(num_reads=num_reads.data).first()
-        if sample is not None:
-            raise ValidationError('Please use a different num_reads.')
+    # def validate_num_reads(self,num_reads):
+    #     sample =Sample.query.filter_by(num_reads=num_reads.data).first()
+    #     if sample is not None:
+    #         raise ValidationError('Please use a different num_reads.')
 
 
     
