@@ -131,3 +131,6 @@ seqbox.code-workspace
 
 # Ignore venv 
 seq
+
+#Ignore Text files
+*.txt
