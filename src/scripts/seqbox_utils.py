@@ -439,6 +439,13 @@ def read_in_covid_confirmatory_pcr(covid_confirmatory_pcr_info):
         covid_confirmatory_pcr.ct = covid_confirmatory_pcr_info['covid_confirmatory_pcr_ct']
     return covid_confirmatory_pcr
 
+def validate_ct(ct):
+    try:
+        ct = int(ct)
+    except ValueError as e:
+        print("CT can not be converted to an integer.Defaulting to null")
+        ct = None
+    return ct
 
 def read_in_pcr_result(pcr_result_info):
     if check_pcr_result(pcr_result_info) is False:
@@ -448,10 +455,7 @@ def read_in_pcr_result(pcr_result_info):
         pcr_result.date_pcred = datetime.datetime.strptime(pcr_result_info['date_pcred'], '%d/%m/%Y')
     if pcr_result_info['pcr_identifier'] != '':
         pcr_result.pcr_identifier = pcr_result_info['pcr_identifier']
-    if pcr_result_info['ct'] == '':
-        pcr_result.ct = None
-    else:
-        pcr_result.ct = pcr_result_info['ct']
+    pcr_result.ct = validate_ct(pcr_result_info['ct'])
     if pcr_result_info['pcr_result'] != '':
         pcr_result.pcr_result = pcr_result_info['pcr_result']
     return pcr_result
