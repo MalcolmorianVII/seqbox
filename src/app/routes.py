@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
+import os
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, SampleForm, BatchForm, LocationForm, Result1Form, MykrobeForm,ProjectForm, Sample_projectForm
 from app.models import User, Mykrobe, Project #, Sample_project #Sample, Batch, Location, Result1
@@ -544,3 +545,33 @@ def sample_project():
         flash('Congratulations, you are now a registered sample_project!')
         return redirect(url_for('index'))
     return render_template('sample_project.html', title='validate', form=form)
+
+
+# The covid pipeline frontend starts here........
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/get_todolist',methods=['GET','POST'])
+def get_todolist():
+    if request.method == 'POST':
+        os.system('nextflow run /home/bkutambe/Documents/Core_Bioinfo/modules/todo_list.nf')
+        return render_template('getting_todolist.html')
+    return render_template('todolist.html')
+
+@app.route('/process_seq_data',methods=['GET','POST'])
+def process_seq_data():
+    if request.method == 'POST':
+        print('Talandira')
+        os.system('nextflow run /home/bkutambe/Documents/Core_Bioinfo/modules/process_seq_data.nf')
+        return render_template('getting_todolist.html')
+    return render_template('process_seq_data.html')
+
+@app.route('/get_seq_data',methods=['GET','POST'])
+def get_seq_data():
+    if request.method == 'POST':
+        print('Talandira')
+        os.system('nextflow run /home/bkutambe/Documents/Core_Bioinfo/modules/add_sequencing_data.nf')
+        return render_template('getting_todolist.html')
+    return render_template('add_seq_data.html')
