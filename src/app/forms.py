@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, DateField
 # from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
-from app.models import User, Mykrobe, Project #,Sample_project #Sample, Batch, Location, Result1
+from app.models import User, Mykrobe, Project,Sample #,Sample_project #Sample, Batch, Location, Result1
 
 class LoginForm(FlaskForm):
    
@@ -47,14 +47,14 @@ class SampleForm(FlaskForm):
     submit = SubmitField('Validate')
     
     def validate_id_sample(self, id_sample):
-        sample = Sample.query.filter_by(id_sample=id_sample.data).first()
+        sample = Sample.query.filter_by(id=id_sample.data).first()
         if sample is not None:
             raise ValidationError('Please use a different id_sample.')
     
-    def validate_num_reads(self,num_reads):
-        sample =Sample.query.filter_by(num_reads=num_reads.data).first()
-        if sample is not None:
-            raise ValidationError('Please use a different num_reads.')
+    # def validate_num_reads(self,num_reads):
+    #     sample =Sample.query.filter_by(num_reads=num_reads.data).first()
+    #     if sample is not None:
+    #         raise ValidationError('Please use a different num_reads.')
 
 
     

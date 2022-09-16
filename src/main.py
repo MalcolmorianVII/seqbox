@@ -1,6 +1,6 @@
 from app import app, db
-# from app.models import User, Sample, Post, Batch, Location, Result1, Mykrobe, Project, Sample_project
-from app.models import User, Sample, Mykrobe, Project
+from app.models import User, Sample, Post, Batch, Location, Result1, Mykrobe, Project, Sample_project
+
 
 @app.shell_context_processor
 def make_shell_context():

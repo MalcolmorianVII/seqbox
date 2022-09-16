@@ -4,7 +4,7 @@ from werkzeug.urls import url_parse
 import os
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, SampleForm, BatchForm, LocationForm, Result1Form, MykrobeForm,ProjectForm, Sample_projectForm
-from app.models import User, Mykrobe, Project #, Sample_project #Sample, Batch, Location, Result1
+from app.models import User, Mykrobe, Project,Sample #, Sample_project #Sample, Batch, Location, Result1
 
 @app.route('/')
 @app.route('/index',methods=['GET', 'POST'])
