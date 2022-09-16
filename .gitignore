@@ -134,3 +134,7 @@ seq
 
 #Ignore Text files
 *.txt
+
+work
+.nextflow*
+src/app/seq_templates/*
