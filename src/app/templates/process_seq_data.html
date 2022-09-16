@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>PROCESS SEQUENCING DATA</h1>
+   <p>
+    In order to process the sequencing data you need to do the following:<br>
+    <ul>
+        <li>Provide path to save the seqbox export</li>
+        <li>Provide file name of the seqbox export</li>
+        <li>Click the get_to button below</li>
+    </ul>
+   </p>
+   <button onclick="processSeqData" class="seqdata">process seq_data</button>
+   <div class="results"></div>
+{% endblock content %}

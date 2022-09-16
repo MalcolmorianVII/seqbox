@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+   <h1>GET TODOLIST FROM SEQBOX</h1>
+   <p>
+    In order to get a todolist from seqbox you need to do the following:<br>
+    <ul>
+        <li>Provide path to save the seqbox export</li>
+        <li>Provide file name of the seqbox export</li>
+        <li>Click the get_to button below</li>
+    </ul>
+   </p>
+   <button onclick="getTodo" class="todo">Get todo</button>
+   <div class="results"></div>
+{% endblock content %}

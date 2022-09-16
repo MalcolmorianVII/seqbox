@@ -4,38 +4,6 @@
     <h1>Hi, {{ current_user.username }}!</h1>
     {% for post in posts %}
     <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p>
-        
-        <body>
-                <form action="/" method="post">
-                    <select  onchange ="if (this.value)window.location.href=this.value">
-                        
-                        <option value="/seqbox">Seqbox<option>
-                        <option value="/sample">Sample<option>
-                        <option value="/batch">Batch<option>
-                        <option value="/location">Location<option>
-                        <option value="/result1">Result1<option>
-                        <option value="/mykrobe">Mykrobe<option>
-                        <option value="/project">Project<option>
-                        <option value="/sample_project">Sample_project<option>
-                    </select>
-                        <input type="submit" value="Add">
-                </form>
-
-                <form action="/" method="post">
-                    <select  onchange ="if (this.value)window.location.href=this.value">
-                        <option value="/seqbox">Seqbox<option>
-                        <option value="/list_batch">List_batch<option>
-                        <option value="/list_sample">List_sample<option>
-                        <option value="/list_location">List_location<option>
-                        <option value="/list_result1">List_result1<option>
-                        <option value="/list_mykrobe">List_mykrobe<option>
-                        <option value="/list_project">List_project<option>
-                          
-                        
-                    </select>
-                       <input type="submit" value="Query">
-                </form>
     </div>
-    {% endfor %}
-    
+    {% endfor %} 
 {% endblock %}
