@@ -563,7 +563,6 @@ def get_todolist():
 @app.route('/process_seq_data',methods=['GET','POST'])
 def process_seq_data():
     if request.method == 'POST':
-        print('Talandira')
         os.system('nextflow run /home/bkutambe/Documents/Core_Bioinfo/modules/process_seq_data.nf')
         return render_template('getting_todolist.html')
     return render_template('process_seq_data.html')
@@ -571,7 +570,6 @@ def process_seq_data():
 @app.route('/get_seq_data',methods=['GET','POST'])
 def get_seq_data():
     if request.method == 'POST':
-        print('Talandira')
         os.system('nextflow run /home/bkutambe/Documents/Core_Bioinfo/modules/add_sequencing_data.nf')
         return render_template('getting_todolist.html')
     return render_template('add_seq_data.html')
