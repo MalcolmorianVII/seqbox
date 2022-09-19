@@ -8,6 +8,7 @@ python3 ../src/scripts/seqbox_cmd.py add_projects -i 01.test_todo_list_query/pro
 python3 ../src/scripts/seqbox_cmd.py add_sample_sources -i 01.test_todo_list_query/sample_sources.csv
 python3 ../src/scripts/seqbox_cmd.py add_samples -i 01.test_todo_list_query/samples.csv
 python3 ../src/scripts/seqbox_cmd.py add_extractions -i 01.test_todo_list_query/extraction.csv
+python3 ../src/scripts/seqbox_cmd.py add_pcr_assays -i 01.test_todo_list_query/pcr_assay.csv
 python3 ../src/scripts/seqbox_cmd.py add_tiling_pcrs -i 01.test_todo_list_query/tiling_pcr.csv
 python3 ../src/scripts/seqbox_cmd.py add_covid_confirmatory_pcrs -i 01.test_todo_list_query/confirmatory_pcr.csv
 python3 ../src/scripts/seqbox_cmd.py add_raw_sequencing_batches -i 01.test_todo_list_query/raw_sequencing_batch.csv
