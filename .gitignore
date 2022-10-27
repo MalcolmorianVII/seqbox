@@ -133,13 +133,11 @@ seqbox.code-workspace
 # Ignore venv 
 seq
 
-#Ignore Text files
-*.txt
 
 work
 .nextflow*
 src/app/seq_templates/*
-=======
+
 # Ignore venv
 seq
->>>>>>> 14f7839d1babbaebccfccf5a49d922c927f7667a
+
