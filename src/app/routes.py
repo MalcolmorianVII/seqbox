@@ -549,6 +549,7 @@ def sample_project():
 
 # The covid pipeline frontend starts here........
 
+COVID_PIPELINE = "/home/bkutambe/Documents/Core_Bioinfo/main_pipeline.nf"
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -556,20 +557,20 @@ def home():
 @app.route('/get_todolist',methods=['GET','POST'])
 def get_todolist():
     if request.method == 'POST':
-        os.system('nextflow run /home/bkutambe/Documents/Core_Bioinfo/modules/todo_list.nf')
+        os.system(f"nextflow run {COVID_PIPELINE} --choice 1")
         return render_template('getting_todolist.html')
     return render_template('todolist.html')
 
 @app.route('/process_seq_data',methods=['GET','POST'])
 def process_seq_data():
     if request.method == 'POST':
-        os.system('nextflow run /home/bkutambe/Documents/Core_Bioinfo/modules/process_seq_data.nf')
+        os.system(f"nextflow run {COVID_PIPELINE} --choice 2")
         return render_template('getting_todolist.html')
     return render_template('process_seq_data.html')
 
 @app.route('/get_seq_data',methods=['GET','POST'])
 def get_seq_data():
     if request.method == 'POST':
-        os.system('nextflow run /home/bkutambe/Documents/Core_Bioinfo/modules/add_sequencing_data.nf')
+        os.system(f"nextflow run {COVID_PIPELINE} --choice 3")
         return render_template('getting_todolist.html')
     return render_template('add_seq_data.html')

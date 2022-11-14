@@ -10,4 +10,4 @@ if __name__ == "__main__":
     # this db.create_all() might just be needed for sqlite
     # i think it's a one time thing, only needs to be done first time
     db.create_all()
-    app.run(debug=True)
+    app.run(debug=True,host="0.0.0.0",port=5000)
