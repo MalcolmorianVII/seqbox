@@ -130,6 +130,7 @@ dmypy.json
 seqbox.code-workspace
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Ignore venv 
 seq
 
@@ -141,3 +142,7 @@ src/app/seq_templates/*
 # Ignore venv
 seq
 
+=======
+# Ignore seq venv
+seq
+>>>>>>> 14b46a362ae40be940e91bcf46104201a076638f
