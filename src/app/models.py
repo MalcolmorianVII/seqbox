@@ -189,7 +189,7 @@ class Sample(db.Model):
     day_collected = db.Column(db.Integer, comment="day of the month this was collected")
     month_collected = db.Column(db.Integer, comment="month this was collected")
     year_collected = db.Column(db.Integer, comment="year this was collected")
-    date_collected = db.Column(db.DateTime)
+    #date_collected = db.Column(db.DateTime)
     day_received = db.Column(db.Integer, comment="day of the month this was received")
     month_received = db.Column(db.Integer, comment="month this was received")
     year_received = db.Column(db.Integer, comment="year this was received")
