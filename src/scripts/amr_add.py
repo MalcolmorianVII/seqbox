@@ -16,10 +16,10 @@ def sanitize_amr_header(amr_dict):
     amr_dict['alignment_length'] = amr_dict.pop('Alignment length')
     amr_dict['accession_of_closest_sequence'] = amr_dict.pop('Accession of closest sequence')
 
-def read_in_as_dict(inhandle):
+def read_in_as_dict(inhandle,delimiter=','):
     # since csv.DictReader returns a generator rather than an iterator, need to do this fancy business to
     # pull in everything from a generator into an honest to goodness iterable.
-    info = csv.DictReader(open(inhandle, encoding='utf-8-sig'),delimiter="\t")
+    info = csv.DictReader(open(inhandle, encoding='utf-8-sig'),delimiter=delimiter)
     # info is a list of ordered dicts, so convert each one to
     list_of_lines = []
     
@@ -52,6 +52,6 @@ file = "/home/bkutambe/test_data/bactopia_train/bactopiaResults/CQJ14G/antimicro
 amrs = read_in_as_dict(file)
 
 def get_amrs():
-    amrs = read_in_as_dict(file)
+    amrs = read_in_as_dict(file,delimiter="\t")
 
 print(amrs)

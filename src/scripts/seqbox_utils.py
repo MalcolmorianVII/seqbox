@@ -9,10 +9,10 @@ from app.models import Sample, Project, SampleSource, ReadSet, ReadSetIllumina, 
     ReadSetBatch, PcrResult, PcrAssay, ArticCovidResult, PangolinResult
 
 
-def read_in_as_dict(inhandle):
+def read_in_as_dict(inhandle,delimiter=','):
     # since csv.DictReader returns a generator rather than an iterator, need to do this fancy business to
     # pull in everything from a generator into an honest to goodness iterable.
-    info = csv.DictReader(open(inhandle, encoding='utf-8-sig'))
+    info = csv.DictReader(open(inhandle, encoding='utf-8-sig'),delimiter=delimiter)
     # info is a list of ordered dicts, so convert each one to
     list_of_lines = []
     for each_dict in info:
