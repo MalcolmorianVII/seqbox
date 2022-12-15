@@ -405,6 +405,24 @@ class PcrAssay(db.Model):
     notes = db.Column(db.VARCHAR(256), comment="General comments.")
 
 
+class AMRFinderResult(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    contig_id = db.Column(db.VARCHAR(60),comment="The contig the gene is located on")
+    start =  db.Column(db.Numeric, comment="The start position of the gene on the genome")
+    stop = db.Column(db.Numeric, comment="The stop position of the gene on the genome")
+    strand = db.Column(db.VARCHAR(60),comment="The strand the gene is located on")
+    gene_symbol = db.Column(db.VARCHAR(60),comment="The symbol of gene found")
+    sequence_name = db.Column(db.VARCHAR(60),comment="The sequence name of the gene found")
+    gene_class = db.Column(db.VARCHAR(60),comment="The sequence class of the gene found")
+    gene_subclass = db.Column(db.VARCHAR(60),comment="The sequence subclass of the gene found")
+    target_length = db.Column(db.Numeric, comment="The gene length on the genome")
+    reference_sequence_length = db.Column(db.Numeric, comment="The reference gene length")
+    pct_cov_of_ref_seq = db.Column(db.Numeric, comment="Percentage coverage of reference sequence")
+    pct_id_to_ref_seq = db.Column(db.Numeric, comment="Percentage identity of reference sequence")
+    alignment_length = db.Column(db.Numeric, comment="The alignment length of the target to the reference")
+    accession_of_closest_sequence = db.Column(db.VARCHAR(60),comment="The sequence subclass of the gene found")
+    # pangolin_results = db.relationship("PangolinResult", backref=backref("artic_covid_result", passive_deletes=True))
+
 class ArticCovidResult(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sample_name = db.Column(db.VARCHAR(60), comment="The sample name from the artic result output.")
@@ -416,7 +434,6 @@ class ArticCovidResult(db.Model):
     readset_id = db.Column(db.ForeignKey("read_set.id", ondelete="cascade", onupdate="cascade"))
     notes = db.Column(db.VARCHAR(256), comment="General comments.")
     pangolin_results = db.relationship("PangolinResult", backref=backref("artic_covid_result", passive_deletes=True))
-
 
 class PangolinResult(db.Model):
     id = db.Column(db.Integer, primary_key=True)
