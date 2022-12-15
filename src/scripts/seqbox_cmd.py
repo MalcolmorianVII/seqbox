@@ -169,6 +169,10 @@ def add_artic_covid_results(args):
                   f"{artic_covid_result['readset_batch_name']} in the database. No action taken.")
 
 
+def add_amr_results(args):
+    amr_results = read_in_as_dict(args.amr_results_inhandle)
+
+    
 def add_pangolin_results(args):
     all_pangolin_results_info = read_in_as_dict(args.pangolin_results_inhandle)
     for pangolin_result_info in all_pangolin_results_info:

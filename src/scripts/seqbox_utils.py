@@ -1210,8 +1210,6 @@ def add_readset(readset_info, covid, nanopore_default):
     print(f"Added readset {readset_info['sample_identifier']} to the database.")
 
 
-
-
-
-
-
+def add_amr_result():
+    # Take in a amrfinder result file & extract the necessary data & add it to the db
+    pass
