@@ -48,7 +48,7 @@ def read_in_as_dict(inhandle,delimiter=','):
             # print(f'This line not being processed - {new_info}')
     return list_of_lines
 
-file = "/home/bkutambe/test_data/bactopia_train/bactopiaResults/CQJ14G/antimicrobial-resistance/FAO60983_pass_barcode02_b01ddb04_amrfinder"
+file = "/home/bkutambe/test_data/bactopia_train/bactopiaResults/CQJ14G/antimicrobial-resistance/CQJ14G-gene-report.txt"
 amrs = read_in_as_dict(file)
 
 def get_amrs():

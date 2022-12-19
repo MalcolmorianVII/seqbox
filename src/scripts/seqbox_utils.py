@@ -6,7 +6,7 @@ import datetime
 from app import db
 from app.models import Sample, Project, SampleSource, ReadSet, ReadSetIllumina, ReadSetNanopore, RawSequencingBatch,\
     Extraction, RawSequencing, RawSequencingNanopore, RawSequencingIllumina, TilingPcr, Groups, CovidConfirmatoryPcr, \
-    ReadSetBatch, PcrResult, PcrAssay, ArticCovidResult, PangolinResult
+    ReadSetBatch, PcrResult, PcrAssay, ArticCovidResult, PangolinResult,AMRFinderResult
 
 
 def read_in_as_dict(inhandle,delimiter=','):
@@ -1210,6 +1210,33 @@ def add_readset(readset_info, covid, nanopore_default):
     print(f"Added readset {readset_info['sample_identifier']} to the database.")
 
 
-def add_amr_result():
+def add_amr_result(amr_result):
+    # Takes in amr result as a dict and the results to the database
+    amr_finder_result = AMRFinderResult()
+    amr_finder_result.contig_id =  amr_result['contig_id'] 
+    amr_finder_result.start= amr_result['start'] 
+    amr_finder_result.stop = amr_result['stop'] 
+    amr_finder_result.strand = amr_result['strand'] 
+    amr_finder_result.gene_symbol = amr_result['gene_symbol'] 
+    amr_finder_result.gene_class = amr_result['class'] 
+    amr_finder_result.gene_subclass = amr_result['subclass'] 
+    amr_finder_result.sequence_name = amr_result['sequence_name'] 
+    amr_finder_result.target_length = amr_result['target_length'] 
+    amr_finder_result.reference_sequence_length = amr_result['reference_sequence_length']
+    amr_finder_result.pct_cov_of_ref_seq = amr_result['pct_cov_of_ref_seq']
+    amr_finder_result.pct_id_to_ref_seq = amr_result['pct_id_to_ref_seq'] 
+    amr_finder_result.alignment_length = amr_result['alignment_length']
+    amr_finder_result.accession_of_closest_sequence = amr_result['accession_of_closest_sequence']
+
+    db.session.add(amr_finder_result)
+    db.session.commit()
+def add_amr_results(bactopia_results):
     # Take in a amrfinder result file & extract the necessary data & add it to the db
+    # Take in a path of bactopia sample results
+    amr_sample_files = glob.glob(f'{bactopia_results}/CQ*/antimicrobial-resistance/*-gene-report.txt')
+    # amr_sample = f'{os.path.abspath(samples)}/{sample}/antimicrobial-resistance/{sample}-gene-report.txt'
+
+    for amr_sample_file in amr_sample_files:
+        amr_result = read_in_as_dict(amr_sample_file)
+        add_amr_result(amr_result)
     pass
