@@ -269,6 +269,8 @@ def main():
     parser_add_covid_confirmatory_pcr.add_argument('-i', dest='covid_confirmatory_pcrs_inhandle')
     parser_add_pcr_result = subparsers.add_parser('add_pcr_results', help='Add some PCR results')
     parser_add_pcr_result.add_argument('-i', dest='pcr_results_inhandle')
+    parser_add_amr_result = subparsers.add_parser('add_amrfinder_results', help='Add some AMRFinder results')
+    parser_add_pcr_result.add_argument('-i', dest='amrfinder_inhandle')
     parser_add_pcr_assay = subparsers.add_parser('add_pcr_assays', help='Add a PCR assay')
     parser_add_pcr_assay.add_argument('-i', dest='pcr_assays_inhandle')
     parser_add_readset_batches = subparsers.add_parser('add_readset_batches', help='Add a readset batch')
