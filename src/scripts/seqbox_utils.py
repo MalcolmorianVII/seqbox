@@ -1239,4 +1239,4 @@ def add_amr_results(bactopia_results):
     for amr_sample_file in amr_sample_files:
         amr_result = read_in_as_dict(amr_sample_file)
         add_amr_result(amr_result)
-    pass
+    
