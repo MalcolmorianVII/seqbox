@@ -424,7 +424,7 @@ class AMRFinderResult(db.Model):
     amr_version = db.Column(db.VARCHAR(60),comment="The AMRFinder version used to collect the results")
     assembly = db.relationship("Assembly", backref=backref("amr_finder_result", passive_deletes=True))
 
-class Assembly:
+class Assembly(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     assembler = db.Column(db.VARCHAR(60), comment="The assembler software used to generate draft genome.")
     version = db.Column(db.VARCHAR(60), comment="The version of the assembler software.")

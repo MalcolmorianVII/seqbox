@@ -12,9 +12,10 @@ app.config.from_object(Config)
  # from Python module 'config.py' into 'app.config'
 Bootstrap(app)
 db = SQLAlchemy(app) # Initialize the Flask-SQLAlchemy extension instance
+from app import routes, models
 # see here https://blog.miguelgrinberg.com/post/how-to-add-flask-migrate-to-an-existing-project
 migrate = Migrate(app, db, compare_type=True)
 login = LoginManager(app)
 login.login_view = 'login'
 
-from app import routes, models
+
