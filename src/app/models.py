@@ -476,3 +476,9 @@ class Assembly(db.Model):
     total_assembled_length = db.Column(db.Numeric, comment="The length of draft genome.")
     notes = db.Column(db.VARCHAR(250), comment="AOB regarding the assembly process")
     readset = db.relationship("ReadSet",backref=backref("assembly_table",passive_deletes=True))
+
+class Bactopia(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    stage = db.Column(db.VARCHAR(60), comment="The name of bactopia process")
+    results = db.Column(db.VARCHAR(60), comment="The storage path of results for a bactopia process")
+    notes = db.Column(db.VARCHAR(60), comment="AOB regarding the bactopia process")
