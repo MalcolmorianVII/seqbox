@@ -1,4 +1,7 @@
 import pytest
+from flask import Flask
+from config import Config
+from flask_sqlalchemy import SQLAlchemy
 
 @pytest.fixture
 def supply_dict_info_per_sample(dict_info):
@@ -15,5 +18,8 @@ def supply_elution_info(elution_info):
     return elution_info
 
 @pytest.fixture
-def supply_db_conn(con):
-    return con
+def supply_db_conn():
+    app = Flask(__name__) # Create a Flask app instance
+    app.config.from_object(Config)
+    db = SQLAlchemy(app)
+    return db
