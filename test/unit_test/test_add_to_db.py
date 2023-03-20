@@ -1,15 +1,5 @@
 import pytest
 
-@pytest.mark.info_present
-def test_is_elution_info_present(supply_dict_info_per_sample):
-    message = f"elution_plate_id and elution_plate_well must both be present or both be absent for this line {supply_dict_info_per_sample}. Exiting."
-    assert isinstance(supply_dict_info_per_sample, "dict")
-    assert supply_dict_info_per_sample['elution_plate_id'] == '' & supply_dict_info_per_sample['elution_plate_well'] == ''
-    assert supply_dict_info_per_sample['elution_plate_id'] != '' & supply_dict_info_per_sample['elution_plate_well'] != ''
-    assert supply_dict_info_per_sample['elution_plate_id'] == '' & supply_dict_info_per_sample['elution_plate_well'] != '',message
-    supply_dict_info_per_sample['elution_plate_id'] != '' & supply_dict_info_per_sample['elution_plate_well'] == '',message
-
-
 def add_elution_info_to_extraction(elution_info,conn):
     extraction = test_get_extraction(elution_info)
     extraction.elution_plate_id = elution_info['elution_plate_id']
@@ -44,4 +34,3 @@ def test_add_elution_info_to_extractions(supply_elution_info,supply_db_conn):
         assert test_get_extraction(elution_info) is False
         assert add_elution_info_to_extraction(elution_info,supply_db_conn),not_added_message
         
-  
