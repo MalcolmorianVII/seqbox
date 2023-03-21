@@ -23,3 +23,12 @@ def supply_db_conn():
     app.config.from_object(Config)
     db = SQLAlchemy(app)
     return db
+
+def db_connector(test_fxn):
+    def test_fxn_wrapper(*args,**kwargs):
+        app = Flask(__name__) # Create a Flask app instance
+        app.config.from_object(Config)
+        db = SQLAlchemy(app)
+        test_fxn(*args,**kwargs)
+
+    return test_fxn_wrapper

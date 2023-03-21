@@ -1,4 +1,41 @@
-import pytest
+# import pytest
+from app import models
+
+def test_add_info(ORM_model,add_function,test_data):
+    # Model instance attributes
+    valid_table_cols = ORM_model.__table__.columns.keys()[1:] # Exclude the id col & the relations
+    # Before adding to db
+    before_add = len(ORM_model.query.all())
+    # DB changes
+    add_result = add_function(test_data)
+    # After adding to db
+    after_add = len(ORM_model.query.all())
+    # test length of input data
+    assert len(test_data) == len(inst_attribs)
+    assert after_add - before_add == 1
+
+
+test_add_info(models.ArticCovidResult,add_artic_covid_result,artic_covid_result_info)
+test_add_info(models.CovidConfirmatoryPcr,add_covid_confirmatory_pcr,covid_confirmatory_pcr_info)
+# test_add_info(models.ArticCovidResult,add_artic_covid_result,artic_covid_result_info) # Redundancy with test1 above??
+test_add_info(models.Culture,add_culture,culture_info)
+test_add_info(models.Extraction,add_elution_info_to_extraction,elution_info)
+
+test_add_info(models.Extraction,add_extraction,extraction_info)
+test_add_info(models.Groups,add_group,group_info)
+test_add_info(models.Mykrobe,add_mykrobe_result,mykrobe_result_info)
+test_add_info(models.PangolinResult,add_pangolin_result,pangolin_result_info)
+test_add_info(models.PcrAssay,add_pcr_assay,pcr_assay_info)
+
+test_add_info(models.PcrResult,add_pcr_result,pcr_result_info)
+test_add_info(models.Project,add_project,project_info)
+test_add_info(models.RawSequencingBatch,add_raw_sequencing_batch,raw_sequencing_batch_info)
+test_add_info(models.ReadSet,add_readset(readset_info, covid, nanopore_default))
+test_add_info(models.ReadSetBatch,add_readset_batch,readset_batch_info)
+
+test_add_info(models.Sample,add_sample,sample_info)
+test_add_info(models.SampleSource,add_sample_source,sample_source_info)
+test_add_info(models.TilingPcr,add_tiling_pcr,tiling_pcr_info)
 
 def add_elution_info_to_extraction(elution_info,conn):
     extraction = test_get_extraction(elution_info)
@@ -11,7 +48,7 @@ def add_elution_info_to_extraction(elution_info,conn):
     
 
 
-@pytest.mark.add_info_to_db
+# @pytest.mark.add_info_to_db
 def test_add_elution_info_to_extractions(supply_elution_info,supply_db_conn):
     all_elution_info = read_in_as_dict(supply_elution_info)
     not_added_message = f"Elution information is not present for {elution_info['sample_identifier']} from {elution_info['group_name']}. Not adding to DB."
