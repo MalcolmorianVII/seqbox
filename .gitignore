@@ -131,3 +131,6 @@ seqbox.code-workspace
 
 # ignore pycharm settings
 /.idea
+
+# ignore seq env
+seq
