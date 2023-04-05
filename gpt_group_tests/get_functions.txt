@@ -1,0 +1,19 @@
+def get_sample_source(sample_info):
+def get_sample(readset_info):
+def get_mykrobe_result(mykrobe_result_info):
+def get_extraction(readset_info):
+def get_culture(culture_info):
+def get_projects(info):
+def get_artic_covid_result(artic_covid_result_info):
+def get_pangolin_result(pangolin_result_info):
+def get_tiling_pcr(tiling_pcr_info):
+def get_covid_confirmatory_pcr(covid_confirmatory_pcr_info):
+def get_pcr_assay(pcr_assay_info):
+def get_pcr_result(pcr_result_info):
+def get_readset_batch(readset_batch_info):
+def get_group(group_info):
+def get_readset_from_readset_identifier(readset_info):
+def get_readset(readset_info, covid):
+def get_raw_sequencing_batch(batch_name):
+def get_raw_sequencing(readset_info, raw_sequencing_batch, covid):
+def get_nanopore_readset_from_batch_and_barcode(batch_and_barcode_info):

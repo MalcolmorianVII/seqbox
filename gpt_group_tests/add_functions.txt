@@ -1,0 +1,17 @@
+def add_project(project_info):
+def add_readset_batch(readset_batch_info):
+def add_sample(sample_info):
+def add_mykrobe_result(mykrobe_result_info):
+def add_sample_source(sample_source_info):
+def add_tiling_pcr(tiling_pcr_info):
+def add_covid_confirmatory_pcr(covid_confirmatory_pcr_info):
+def add_group(group_info):
+def add_pcr_assay(pcr_assay_info):
+def add_pcr_result(pcr_result_info):
+def add_culture(culture_info):
+def add_extraction(extraction_info):
+def add_elution_info_to_extraction(elution_info):
+def add_raw_sequencing_batch(raw_sequencing_batch_info):
+def add_artic_covid_result(artic_covid_result_info):
+def add_pangolin_result(pangolin_result_info):
+def add_readset(readset_info, covid, nanopore_default):

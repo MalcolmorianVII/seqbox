@@ -1,0 +1,16 @@
+def check_sample_source_associated_with_project(sample_source, sample_source_info):
+def check_mykrobe_res(mykrobe_res_info):
+def check_pangolin_result(pangolin_result_info):
+def check_artic_covid_result(artic_covid_result_info):
+def check_raw_sequencing_batch(raw_sequencing_batch_info):
+def check_readset_batches(readset_batch_info):
+def check_cultures(culture_info):
+def check_extraction_fields(extraction_info):
+def check_group(group_info):
+def check_project(project_info):
+def check_sample_sources(sample_source_info):
+def check_samples(sample_info):
+def check_covid_confirmatory_pcr(covid_confirmatory_pcr_info):
+def check_tiling_pcr(tiling_pcr_info):
+def check_pcr_result(pcr_result_info):
+def check_readset_fields(readset_info, nanopore_default, raw_sequencing_batch, covid):
