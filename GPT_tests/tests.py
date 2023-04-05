@@ -1,13 +1,13 @@
 import pytest
-from my_module import check_sample_source_associated_with_project
-from your_module import check_sample_source_associated_with_project, get_sample_source
+# from my_module import check_sample_source_associated_with_project
+from scripts.seqbox_utils import check_sample_source_associated_with_project, get_sample_source,query_projects
 
 
 def test_check_sample_source_associated_with_project_existing_relationship(sample_source, sample_source_info, projects, db, query_projects, mocker):
     # Test the function when there is an existing relationship between the sample source and project(s)
     # Set up the mock for query_projects function
     p = (True, projects[0])
-    mocker.patch('my_module.query_projects', return_value=p)
+    mocker.patch('scripts.seqbox_utils.query_projects', return_value=p)
     # Associate the sample source with the project(s) in the input file
     sample_source_info['projects'] = projects[0].project_name
     # Call the function
