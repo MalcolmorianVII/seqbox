@@ -5,39 +5,46 @@ from app.models import SampleSource,Project
 from app import db
 
 def test_check_sample_source_associated_with_project(sample_source_info):
-    # create a sample source with a project association in the DB
-    sample_source = SampleSource()
-    project = Project(project_name="COVIDseq")  
-    sample_source.projects.append(project)
-    db.session.add(sample_source)
-    db.session.add(project)
-    db.session.commit()
+    # create a mock version of the SampleSource and Project classes
+    mock_sample_source_class = mocker.patch('app.models.SampleSource')
+    mock_project_class = mocker.patch('app.models.Project')
 
-    # create a sample source info with the same project association
-    sample_source_info = {
-        'sample_source_identifier': 'test_sample_source',
-        'projects': 'test_project;'
-    }
+    # create a mock version of the database session
+    mock_session = mocker.Mock()
+    mocker.patch('app.db', mock_session)
 
-    # call the function
-    check_sample_source_associated_with_project(sample_source, sample_source_info)
+    # create a mock version of the SampleSource object with a project association
+    mock_sample_source = mock_sample_source_class.return_value
+    mock_project = mock_project_class.return_value
+    mock_project.project_name = 'COVIDseq'
+    mock_sample_source.projects = [mock_project]
+
+    # call the function when the projects data doesnt exist yet
+    check_sample_source_associated_with_project(mock_sample_source, sample_source_info[0])
 
     # assert that no new project was added
-    assert len(sample_source.projects) == 1
-    assert sample_source.projects[0].project_name == "COVIDseq"
+    assert len(mock_sample_source.projects) == 1
+    assert mock_sample_source.projects[0].project_name == "COVIDseq"
 
     # create a sample source info with a new project association
     sample_source_info = {
-        'sample_source_identifier': 'test_sample_source',
-        'projects': 'new_project;'
+        "sample_source_identifier": "CMT17B",
+        "group_name": "Immunology",
+        "projects": "COCOSU",
+        "institution":"MLW"
     }
 
+    mock_project.project_name = sample_source_info["projects"]
+    mock_sample_source.projects.append(mock_project)
+    # mock_sample_source.projects.append(sample_source_info["projects"])
+
     # call the function
-    check_sample_source_associated_with_project(sample_source, sample_source_info)
+    check_sample_source_associated_with_project(mock_sample_source, sample_source_info)
 
     # assert that the new project was added
-    assert len(sample_source.projects) == 2
-    assert sample_source.projects[1].project_name == "new_project"
+    assert len(mock_sample_source.projects) == 2
+    assert mock_sample_source.projects[1].project_name == "COCOSU"
+ 
 
 
 def test_check_mykrobe_res(mykrobe_res_info):
