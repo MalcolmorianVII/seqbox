@@ -59,11 +59,11 @@ def mykrobe_res_info():
     all_valid_fields = {'sample': 'sample_01', 'drug': 'isoniazid', 
                         'susceptibility': 'resistant', 'mykrobe_version': 'v1.0'}
     
-    yield {'blank_sample':blank_sample,'blank_drug':blank_drug,
-    'blank_susc':blank_susc,'blank_mykrobe_version':blank_mykrobe_version,
-    'all_blank_fields':all_blank_fields,'blank_dict':blank_dict,'gibberish':gibberish,
-    'all_valid_fields':all_valid_fields}
-    # yield blank_sample,blank_drug,blank_susc,blank_mykrobe_version,all_blank_fields,all_fields
+    # yield {'blank_sample':blank_sample,'blank_drug':blank_drug,
+    # 'blank_susc':blank_susc,'blank_mykrobe_version':blank_mykrobe_version,
+    # 'all_blank_fields':all_blank_fields,'blank_dict':blank_dict,'gibberish':gibberish,
+    # 'all_valid_fields':all_valid_fields}
+    yield blank_sample,blank_drug,blank_susc,blank_mykrobe_version,all_blank_fields,all_valid_fields
 
 @pytest.fixture
 def pangolin_result_info():
@@ -195,7 +195,7 @@ def extraction_info():
         'submitter_plate_id': 'EXT-1',
         'submitter_plate_well': 'A1'
     }
-    yield valid_extraction_info,empty_sample_id,empty_date,empty_extraction_id,empty_group_name
+    yield empty_sample_id,empty_date,empty_extraction_id,empty_group_name,valid_extraction_info
 
 # @pytest.fixture
 # def sample_source_info():
