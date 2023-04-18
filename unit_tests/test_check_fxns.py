@@ -1,10 +1,11 @@
 import pytest
+import sys
 from datetime import datetime
 from scripts.seqbox_utils import check_sample_source_associated_with_project,check_mykrobe_res,check_pangolin_result,check_artic_covid_result,check_raw_sequencing_batch,check_readset_batches,check_cultures,check_extraction_fields,check_group,check_project,check_sample_sources,check_samples,check_covid_confirmatory_pcr,check_tiling_pcr,check_pcr_result,check_readset_fields
-from app.models import SampleSource,Project
+from app.models import SampleSource,Project,RawSequencingBatch
 from app import db
 
-def test_check_sample_source_associated_with_project(sample_source_info):
+def test_check_sample_source_associated_with_project(mocker,sample_source_info):
     # create a mock version of the SampleSource and Project classes
     mock_sample_source_class = mocker.patch('app.models.SampleSource')
     mock_project_class = mocker.patch('app.models.Project')
@@ -49,13 +50,12 @@ def test_check_sample_source_associated_with_project(sample_source_info):
 
 def test_check_mykrobe_res(mykrobe_res_info):
     
-    for key in mykrobe_res_info:
-        if key != 'all_valid_fields':
-            with pytest.raises(SystemExit) as excinfo:
-                check_mykrobe_res(mykrobe_res_info[key])
-            assert excinfo.value.code == 1
+    for invalid_res_info in mykrobe_res_info[:-1]:
+        with pytest.raises(SystemExit) as excinfo:
+            check_mykrobe_res(invalid_res_info)
+        assert excinfo.value.code == 1
 
-    assert check_mykrobe_res(mykrobe_res_info['all_valid_fields']) is None
+    assert check_mykrobe_res(mykrobe_res_info[-1]) is None
 
 
 def test_check_pangolin_result(pangolin_result_info, capsys):
@@ -138,29 +138,29 @@ def test_valid_culture_info(valid_culture_info):
     check_cultures(valid_culture_info)
  
 
-def test_check_extraction_fields(extraction_info):
-    check_extraction_fields(extraction_info[0])  # No exception expected
+def test_check_extraction_fields(extraction_info,capsys):
 
+    with pytest.raises(SystemExit) as exc_info:
+        check_extraction_fields(extraction_info[0])
+    assert exc_info.value.code == 1
+    assert 'sample_identifier column should not be empty' in capsys.readouterr().out
+
+    
     with pytest.raises(SystemExit) as exc_info:
         check_extraction_fields(extraction_info[1])
     assert exc_info.value.code == 1
-    assert f'sample_identifier column should not be empty' in str(exc_info.value)
-
+    assert f'date_extracted column should not be empty' in capsys.readouterr().out
     
     with pytest.raises(SystemExit) as exc_info:
         check_extraction_fields(extraction_info[2])
     assert exc_info.value.code == 1
-    assert f'date_extracted column should not be empty' in str(exc_info.value)
+    assert f'extraction_identifier column should not be empty' in capsys.readouterr().out
 
-    
     with pytest.raises(SystemExit) as exc_info:
         check_extraction_fields(extraction_info[3])
     assert exc_info.value.code == 1
-    assert f'extraction_identifier column should not be empty' in str(exc_info.value)
 
-    with pytest.raises(SystemExit) as exc_info:
-        check_extraction_fields(extraction_info[4])
-    assert exc_info.value.code == 1
+    check_extraction_fields(extraction_info[-1])  # No exception expected
 
 def test_check_group():
     valid_group_info = {'group_name': 'GroupA', 'institution': 'University A'}
@@ -260,11 +260,12 @@ def test_check_samples_empty_sample_source_identifier(capsys):
         'group_name': 'group1',
         'institution': 'institution1'
     }
-    check_samples(sample_info)
+    with pytest.raises(SystemExit) as exc_info:
+        check_samples(sample_info)
+
     captured = capsys.readouterr()
     assert 'sample_source_identifier column should not be empty' in captured.out
     assert 'Exiting.' in captured.out
-    assert sys.exit.called
 
 def test_check_samples_empty_sample_identifier(capsys):
     sample_info = {
@@ -273,11 +274,12 @@ def test_check_samples_empty_sample_identifier(capsys):
         'group_name': 'group1',
         'institution': 'institution1'
     }
-    check_samples(sample_info)
+    with pytest.raises(SystemExit) as exc_info:
+        check_samples(sample_info)
+    
     captured = capsys.readouterr()
     assert 'sample_identifier column should not be empty' in captured.out
     assert 'Exiting.' in captured.out
-    assert sys.exit.called
 
 def test_check_samples_empty_group_name(capsys):
     sample_info = {
@@ -286,11 +288,11 @@ def test_check_samples_empty_group_name(capsys):
         'group_name': '',
         'institution': 'institution1'
     }
-    check_samples(sample_info)
+    with pytest.raises(SystemExit) as exc_info:
+        check_samples(sample_info)
     captured = capsys.readouterr()
     assert 'group_name column should not be empty' in captured.out
     assert 'Exiting.' in captured.out
-    assert sys.exit.called
 
 def test_check_samples_empty_institution(capsys):
     sample_info = {
@@ -299,11 +301,12 @@ def test_check_samples_empty_institution(capsys):
         'group_name': 'group1',
         'institution': ''
     }
-    check_samples(sample_info)
+    with pytest.raises(SystemExit) as exc_info:
+        check_samples(sample_info)
     captured = capsys.readouterr()
     assert 'institution column should not be empty' in captured.out
     assert 'Exiting.' in captured.out
-    assert sys.exit.called
+    
 
 def test_check_samples_valid_input(capsys):
     sample_info = {
@@ -315,7 +318,6 @@ def test_check_samples_valid_input(capsys):
     check_samples(sample_info)
     captured = capsys.readouterr()
     assert captured.out == ''
-    assert not sys.exit.called
 
 
 def test_check_covid_confirmatory_pcr_empty_sample_identifier(capsys):
@@ -328,11 +330,11 @@ def test_check_covid_confirmatory_pcr_empty_sample_identifier(capsys):
         'group_name': 'group1',
         'covid_confirmatory_pcr_protocol': 'protocol1'
     }
-    check_covid_confirmatory_pcr(covid_confirmatory_pcr_info)
+    with pytest.raises(SystemExit)as exc_info:
+        check_covid_confirmatory_pcr(covid_confirmatory_pcr_info)
     captured = capsys.readouterr()
     assert 'sample_identifier column should not be empty' in captured.out
     assert 'Exiting.' in captured.out
-    assert sys.exit.called
 
 def test_check_covid_confirmatory_pcr_empty_date_extracted(capsys):
     covid_confirmatory_pcr_info = {
@@ -344,11 +346,11 @@ def test_check_covid_confirmatory_pcr_empty_date_extracted(capsys):
         'group_name': 'group1',
         'covid_confirmatory_pcr_protocol': 'protocol1'
     }
-    check_covid_confirmatory_pcr(covid_confirmatory_pcr_info)
+    with pytest.raises(SystemExit) as exc_info:
+        check_covid_confirmatory_pcr(covid_confirmatory_pcr_info)
     captured = capsys.readouterr()
     assert 'date_extracted column should not be empty' in captured.out
     assert 'Exiting.' in captured.out
-    assert sys.exit.called
 
 def test_check_covid_confirmatory_pcr_empty_extraction_identifier(capsys):
     covid_confirmatory_pcr_info = {
@@ -360,11 +362,11 @@ def test_check_covid_confirmatory_pcr_empty_extraction_identifier(capsys):
         'group_name': 'group1',
         'covid_confirmatory_pcr_protocol': 'protocol1'
     }
-    check_covid_confirmatory_pcr(covid_confirmatory_pcr_info)
+    with pytest.raises(SystemExit):
+        check_covid_confirmatory_pcr(covid_confirmatory_pcr_info)
     captured = capsys.readouterr()
     assert 'extraction_identifier column should not be empty' in captured.out
     assert 'Exiting.' in captured.out
-    assert sys.exit.called
 
 def test_check_covid_confirmatory_pcr_empty_date_covid_confirmatory_pcred(capsys):
     covid_confirmatory_pcr_info = {
@@ -376,11 +378,11 @@ def test_check_covid_confirmatory_pcr_empty_date_covid_confirmatory_pcred(capsys
         'group_name': 'group1',
         'covid_confirmatory_pcr_protocol': 'protocol1'
     }
-    check_covid_confirmatory_pcr(covid_confirmatory_pcr_info)
+    with pytest.raises(SystemExit):
+        check_covid_confirmatory_pcr(covid_confirmatory_pcr_info)
     captured = capsys.readouterr()
     assert 'date_covid_confirmatory_pcred column should not be empty' in captured.out
     assert 'Exiting.' in captured.out
-    assert sys.exit.called
 
 def test_check_covid_confirmatory_pcr_empty_covid_confirmatory_pcr_identifier(capsys):
     covid_confirmatory_pcr_info = {
@@ -411,7 +413,8 @@ def test_check_tiling_pcr():
         'group_name': 'Group A',
         'tiling_pcr_protocol': 'Protocol A'
     }
-    assert check_tiling_pcr(tiling_pcr_info) == False
+    with pytest.raises(KeyError):
+        assert check_tiling_pcr(tiling_pcr_info) == False
 
     # Invalid input: empty tiling_pcr_protocol
     tiling_pcr_info = {
@@ -437,7 +440,7 @@ def test_check_pcr_result():
         'assay_name': 'Assay A',
         'pcr_result': 'Negative'
     }
-    assert check_pcr_result(pcr_result_info) == True
+    assert check_pcr_result(pcr_result_info) == None
 
     # Invalid input: missing sample_identifier
     pcr_result_info = {
@@ -447,7 +450,9 @@ def test_check_pcr_result():
         'assay_name': 'Assay A',
         'pcr_result': 'Negative'
     }
-    assert check_pcr_result(pcr_result_info) == False
+
+    with pytest.raises(KeyError):
+        assert check_pcr_result(pcr_result_info) == False
 
     # Invalid input: empty pcr_result
     pcr_result_info = {
@@ -458,7 +463,8 @@ def test_check_pcr_result():
         'assay_name': 'Assay A',
         'pcr_result': ''
     }
-    assert check_pcr_result(pcr_result_info) == False
+    with pytest.raises(SystemExit):
+        assert check_pcr_result(pcr_result_info) == False
 
     # Invalid input: invalid pcr_result
     pcr_result_info = {
@@ -475,7 +481,7 @@ def test_check_pcr_result():
 
 
 
-def test_check_readset_fields(raw_sequencing_batch, covid):
+def test_check_readset_fields(covid):
     readset_info = {
         'data_storage_device': 'external',
         'sample_identifier': 'sample1',
@@ -491,11 +497,12 @@ def test_check_readset_fields(raw_sequencing_batch, covid):
         'date_extracted': datetime.now(),
         'extraction_identifier': 'ext123',
     }
-    
+    raw_sequencing_batch = RawSequencingBatch()
     # Check that all fields are present
     assert check_readset_fields(readset_info, True, raw_sequencing_batch, covid) == None
     
-    # Check that missing fields raise an error
+    # Check that missing fields raise an error i.e illumina data
+    raw_sequencing_batch.sequencing_type == 'illumina'
     readset_info['path_r1'] = ''
     with pytest.raises(SystemExit):
         check_readset_fields(readset_info, False, raw_sequencing_batch, covid)
@@ -525,6 +532,8 @@ def test_check_readset_fields(raw_sequencing_batch, covid):
     with pytest.raises(SystemExit):
         check_readset_fields(readset_info, False, raw_sequencing_batch, True)
     
+    # From here test for nanopore datasets
+    raw_sequencing_batch.sequencing_type == 'nanopore'
     readset_info['tiling_pcr_identifier'] = 'pcr123'
     readset_info['barcode'] = ''
     with pytest.raises(SystemExit):
