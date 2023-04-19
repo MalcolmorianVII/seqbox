@@ -4,49 +4,11 @@ from app import db
 from app.models import Project,Extraction, Sample, SampleSource, Culture, Groups,CovidConfirmatoryPcr,ReadSetIllumina, ReadSetNanopore
 
 
-# Define the pytest function
-def test_get_sample_source(mocker):
-    # Create sample info
-    sample_info = {'sample_source_identifier': 'sample1', 'group_name': 'group1'}
-
-    # Create mock objects
-    sample_source = mocker.MagicMock()
-    group = mocker.MagicMock()
-    project = mocker.MagicMock()
-
-    # Mock the SampleSource.query object
-    mocker.patch('app.models.SampleSource.query', return_value=sample_source)
-
-    # Mock the filter_by method
-    sample_source_filter_by_mock = sample_source.filter_by.return_value
-    sample_source_filter_by_mock.join.return_value = sample_source_filter_by_mock
-    sample_source_filter_by_mock.filter_by.return_value = sample_source_filter_by_mock
-    sample_source_filter_by_mock.all.return_value = [sample_source]
-
-    # Call the get_sample_source() function
-    result = get_sample_source(sample_info)
-
-    # Assert the expected result
-    assert result == False
-    # assert result.sample_source_identifier == sample_source.sample_source_identifier
-
-    # Reset the mock objects
-    sample_source.reset_mock()
-
-    # Mock the case where no matching sample source is found
-    sample_source_filter_by_mock.all.return_value = []
-    
-    # Call the get_sample_source() function again
-    result = get_sample_source(sample_info)
-
-    # Assert the expected result
-    assert result == False
-
-
-def test_check_sample_source_associated_with_project(mocker,sample_source_info):
-    # create a mock version of the SampleSource and Project classes
+def test_get_sample_source(mocker,capsys):
+    # create a mock version of the SampleSource,Groups and Project classes
     mock_sample_source_class = mocker.patch('app.models.SampleSource')
     mock_project_class = mocker.patch('app.models.Project')
+    mock_group_class = mocker.patch('app.models.Groups')
 
     # create a mock version of the database session
     mock_session = mocker.Mock()
@@ -55,8 +17,13 @@ def test_check_sample_source_associated_with_project(mocker,sample_source_info):
     # create a mock version of the SampleSource object with a project association
     mock_sample_source = mock_sample_source_class.return_value
     mock_project = mock_project_class.return_value
+    mock_groups = mock_group_class.return_value
+
+    mock_groups.group_name = 'group1'
     mock_project.project_name = 'project1'
+
     mock_sample_source.projects = [mock_project]
+    mock_sample_source.groups = [mock_groups]
 
     # Sample info with existing sample source
     sample_info = {'sample_source_identifier': 'sample1', 'group_name': 'group1'}
@@ -65,8 +32,22 @@ def test_check_sample_source_associated_with_project(mocker,sample_source_info):
 
     # Assert the expected result
     # assert result == False
-    assert result.sample_source_identifier == sample_source.sample_source_identifier
+    assert result.sample_source_identifier == sample_info['sample_source_identifier']
 
     # Sample info with non-existing sample source
     sample_info = {'sample_source_identifier': 'sample2', 'group_name': 'group1'}
     assert get_sample_source(sample_info) == False
+
+    # More than 1 instance of sample source
+    sample_info = {'sample_source_identifier': 'sample1', 'group_name': 'group1'}
+    mock_project.project_name = 'project1'
+    mock_groups = sample_info['group_name']
+    mock_sample_source.projects.append(mock_project)
+    mock_sample_source.groups.append(mock_groups)
+
+    result = get_sample_source(sample_info)
+
+    # Assert the expected output
+#     # Note: The function should print a message, so you can capture the printed output and assert on it
+    captured = capsys.readouterr()
+    assert "There is more than one matching sample_source" in captured.out

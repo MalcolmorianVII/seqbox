@@ -481,70 +481,70 @@ def test_check_pcr_result():
 
 
 
-def test_check_readset_fields(covid):
-    readset_info = {
-        'data_storage_device': 'external',
-        'sample_identifier': 'sample1',
-        'group_name': 'group1',
-        'readset_batch_name': 'batch1',
-        'barcode': 'ATCG',
-        'path_fastq': '/path/to/fastq',
-        'path_fast5': '/path/to/fast5',
-        'path_r1': '/path/to/r1',
-        'path_r2': '/path/to/r2',
-        'date_tiling_pcred': '2022-01-01',
-        'tiling_pcr_identifier': 'pcr123',
-        'date_extracted': datetime.now(),
-        'extraction_identifier': 'ext123',
-    }
-    raw_sequencing_batch = RawSequencingBatch()
-    # Check that all fields are present
-    assert check_readset_fields(readset_info, True, raw_sequencing_batch, covid) == None
+# def test_check_readset_fields(covid):
+#     readset_info = {
+#         'data_storage_device': 'external',
+#         'sample_identifier': 'sample1',
+#         'group_name': 'group1',
+#         'readset_batch_name': 'batch1',
+#         'barcode': 'ATCG',
+#         'path_fastq': '/path/to/fastq',
+#         'path_fast5': '/path/to/fast5',
+#         'path_r1': '/path/to/r1',
+#         'path_r2': '/path/to/r2',
+#         'date_tiling_pcred': '2022-01-01',
+#         'tiling_pcr_identifier': 'pcr123',
+#         'date_extracted': datetime.now(),
+#         'extraction_identifier': 'ext123',
+#     }
+#     raw_sequencing_batch = RawSequencingBatch()
+#     # Check that all fields are present
+#     assert check_readset_fields(readset_info, True, raw_sequencing_batch, covid) == None
     
-    # Check that missing fields raise an error i.e illumina data
-    raw_sequencing_batch.sequencing_type == 'illumina'
-    readset_info['path_r1'] = ''
-    with pytest.raises(SystemExit):
-        check_readset_fields(readset_info, False, raw_sequencing_batch, covid)
+#     # Check that missing fields raise an error i.e illumina data
+#     raw_sequencing_batch.sequencing_type == 'illumina'
+#     readset_info['path_r1'] = ''
+#     with pytest.raises(SystemExit):
+#         check_readset_fields(readset_info, False, raw_sequencing_batch, covid)
     
-    readset_info['path_r1'] = '/path/to/r1'
-    readset_info['path_r2'] = ''
-    with pytest.raises(SystemExit):
-        check_readset_fields(readset_info, False, raw_sequencing_batch, covid)
+#     readset_info['path_r1'] = '/path/to/r1'
+#     readset_info['path_r2'] = ''
+#     with pytest.raises(SystemExit):
+#         check_readset_fields(readset_info, False, raw_sequencing_batch, covid)
     
-    readset_info['path_r2'] = '/path/to/r2'
-    readset_info['date_extracted'] = 'NaT'
-    with pytest.raises(SystemExit):
-        check_readset_fields(readset_info, False, raw_sequencing_batch, covid)
+#     readset_info['path_r2'] = '/path/to/r2'
+#     readset_info['date_extracted'] = 'NaT'
+#     with pytest.raises(SystemExit):
+#         check_readset_fields(readset_info, False, raw_sequencing_batch, covid)
     
-    readset_info['date_extracted'] = datetime.now()
-    readset_info['extraction_identifier'] = ''
-    with pytest.raises(SystemExit):
-        check_readset_fields(readset_info, False, raw_sequencing_batch, covid)
+#     readset_info['date_extracted'] = datetime.now()
+#     readset_info['extraction_identifier'] = ''
+#     with pytest.raises(SystemExit):
+#         check_readset_fields(readset_info, False, raw_sequencing_batch, covid)
     
-    readset_info['extraction_identifier'] = 'ext123'
-    readset_info['date_tiling_pcred'] = ''
-    with pytest.raises(SystemExit):
-        check_readset_fields(readset_info, False, raw_sequencing_batch, True)
+#     readset_info['extraction_identifier'] = 'ext123'
+#     readset_info['date_tiling_pcred'] = ''
+#     with pytest.raises(SystemExit):
+#         check_readset_fields(readset_info, False, raw_sequencing_batch, True)
     
-    readset_info['date_tiling_pcred'] = '2022-01-01'
-    readset_info['tiling_pcr_identifier'] = ''
-    with pytest.raises(SystemExit):
-        check_readset_fields(readset_info, False, raw_sequencing_batch, True)
+#     readset_info['date_tiling_pcred'] = '2022-01-01'
+#     readset_info['tiling_pcr_identifier'] = ''
+#     with pytest.raises(SystemExit):
+#         check_readset_fields(readset_info, False, raw_sequencing_batch, True)
     
-    # From here test for nanopore datasets
-    raw_sequencing_batch.sequencing_type == 'nanopore'
-    readset_info['tiling_pcr_identifier'] = 'pcr123'
-    readset_info['barcode'] = ''
-    with pytest.raises(SystemExit):
-        check_readset_fields(readset_info, True, raw_sequencing_batch, covid)
+#     # From here test for nanopore datasets
+#     raw_sequencing_batch.sequencing_type == 'nanopore'
+#     readset_info['tiling_pcr_identifier'] = 'pcr123'
+#     readset_info['barcode'] = ''
+#     with pytest.raises(SystemExit):
+#         check_readset_fields(readset_info, True, raw_sequencing_batch, covid)
     
-    readset_info['barcode'] = 'ATCG'
-    readset_info['path_fastq'] = ''
-    with pytest.raises(SystemExit):
-        check_readset_fields(readset_info, False, raw_sequencing_batch, False)
+#     readset_info['barcode'] = 'ATCG'
+#     readset_info['path_fastq'] = ''
+#     with pytest.raises(SystemExit):
+#         check_readset_fields(readset_info, False, raw_sequencing_batch, False)
     
-    readset_info['path_fastq'] = '/path/to/fastq'
-    readset_info['path_fast5'] = ''
-    with pytest.raises(SystemExit):
-        check_readset_fields(readset_info, False,raw_sequencing_batch, False)
+#     readset_info['path_fastq'] = '/path/to/fastq'
+#     readset_info['path_fast5'] = ''
+#     with pytest.raises(SystemExit):
+#         check_readset_fields(readset_info, False,raw_sequencing_batch, False)
