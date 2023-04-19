@@ -299,3 +299,6 @@ pytest test_check_fxns.py -k pattern
 
 Note:All the tests in this module are in one category hence can not be divided into further groups
 
+#Category2: Get functionality
+
+#Category3: Add functionality
