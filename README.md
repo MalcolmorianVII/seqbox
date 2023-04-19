@@ -302,10 +302,10 @@ To test all the functions in category 1 run the following command:
 - ```pytest test_check_fxns.py```  
 
 To test individual functions under category 1 use this command:  
-- ```pytest test_check_fxns.py::name_of_individual_test_function```
+- ```pytest test_check_fxns.py::name_of_individual_test_function```  e.g `pytest test_check_fxns.py::test_check_sample_source_associated_with_project`
 
 For specific test functions having a certain pattern use this command:  
-- ```pytest test_check_fxns.py -k pattern```
+- ```pytest test_check_fxns.py -k pattern``` e.g. To run all the test functions that have **check_pangolin_result** substring in their name we can run `pytest test_check_fxns.py -k check_pangolin_result`
 
 **Note**:All the tests in this module are in one category hence can not be divided into further groups
 
