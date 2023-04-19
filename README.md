@@ -282,7 +282,7 @@ Install the following dependencies:
 `pip install pytest-mock`
 
 
-**Note**: Ensure you are in a directory like this one */home/bkutambe/Documents/seqbox/seqbox/unit_tests*
+**Note**: Ensure you are in a directory like this one **/home/bkutambe/Documents/seqbox/seqbox/unit_tests**
 
 The following section outlines the unit tests we can run on the codebase.We have four categories and they are:
 
@@ -293,19 +293,19 @@ The following section outlines the unit tests we can run on the codebase.We have
 **Note**: All tests pertaining to a specific category are contained within a dedicated Python script for that category.For example all the tests under the category 1,**check tests** are in this script **test_check_fxns.py** in the unit_tests directory
 
 # Running the tests  
-Ensure that before you run the tests you are in the **unit_tests** directory i.e something like this `/home/bkutambe/Documents/seqbox/seqbox/unit_tests`
+Ensure that before you run the tests you are in the **unit_tests** directory i.e something like this **/home/bkutambe/Documents/seqbox/seqbox/unit_tests**
 # Category 1: Check Tests  
-In seqbox_utils.py we have functions like `check_sample_source_associated_with_project` which 
+In seqbox_utils.py we have functions like **check_sample_source_associated_with_project** which 
 check the validity of input data before we add it to the database.
 
 To test all the functions in category 1 run the following command:  
-```pytest test_check_fxns.py```  
+- ```pytest test_check_fxns.py```  
 
 To test individual functions under category 1 use this command:  
-```pytest test_check_fxns.py::name_of_individual_test_function```
+- ```pytest test_check_fxns.py::name_of_individual_test_function```
 
 For specific test functions having a certain pattern use this command:  
-```pytest test_check_fxns.py -k pattern```
+- ```pytest test_check_fxns.py -k pattern```
 
 **Note**:All the tests in this module are in one category hence can not be divided into further groups
 
