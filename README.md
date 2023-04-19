@@ -278,8 +278,10 @@ This section provides a step-by-step guide on how to set up Pytest for running u
 
 ## Installation
 Install the following dependencies:     
-`pip install pytest`  
-`pip install pytest-mock`
+```
+pip install pytest  
+pip install pytest-mock
+```
 
 
 **Note**: Ensure you are in a directory like this one **/home/bkutambe/Documents/seqbox/seqbox/unit_tests**
@@ -302,10 +304,16 @@ To test all the functions in category 1 run the following command:
 - ```pytest test_check_fxns.py```  
 
 To test individual functions under category 1 use this command:  
-- ```pytest test_check_fxns.py::name_of_individual_test_function```  e.g `pytest test_check_fxns.py::test_check_sample_source_associated_with_project`
+```
+pytest test_check_fxns.py::name_of_individual_test_function
+e.g. pytest test_check_fxns.py::test_check_sample_source_associated_with_project
+```
 
-For specific test functions having a certain pattern use this command:  
-- ```pytest test_check_fxns.py -k pattern``` e.g. To run all the test functions that have **check_pangolin_result** substring in their name we can run `pytest test_check_fxns.py -k check_pangolin_result`
+For specific test functions having a certain pattern for example all the test functions that have **check_pangolin_result** substring in their name,use this command:  
+```
+pytest test_check_fxns.py -k pattern
+e.g. pytest test_check_fxns.py -k check_pangolin_result
+```
 
 
 # Category 2: Get Tests
