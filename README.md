@@ -301,7 +301,9 @@ In seqbox_utils.py we have functions like **check_sample_source_associated_with_
 check the validity of input data before we add it to the database.
 
 To test all the functions in category 1 run the following command:  
-- ```pytest test_check_fxns.py```  
+```
+pytest test_check_fxns.py
+```  
 
 To test individual functions under category 1 use this command:  
 ```
