@@ -277,7 +277,7 @@ I know it’s quite a lot, so happy to meet to discuss or help out in any other 
 This section provides a step-by-step guide on how to set up Pytest for running unit tests in seqbox project and how to run those tests.
 
 ## Installation
-Install the following dependencies:
+Install the following dependencies:     
 `pip install pytest`  
 `pip install pytest-mock`
 
@@ -292,6 +292,8 @@ The following section outlines the unit tests we can run on the codebase.We have
 
 **Note**: All tests pertaining to a specific category are contained within a dedicated Python script for that category.For example all the tests under the category 1,**check tests** are in this script **test_check_fxns.py** in the unit_tests directory
 
+# Running the tests  
+Ensure that before you run the tests you are in the **unit_tests** directory i.e something like this `/home/bkutambe/Documents/seqbox/seqbox/unit_tests`
 # Category 1: Check Tests  
 In seqbox_utils.py we have functions like **check_sample_source_associated_with_project** which 
 check the validity of input data before we add it to the database.
