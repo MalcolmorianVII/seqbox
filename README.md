@@ -271,33 +271,40 @@ I’ve attached a template for each sheet.
 
 I know it’s quite a lot, so happy to meet to discuss or help out in any other way. The date extracted and date pcred columns don’t have to be “true”, they just have to consistent between the sheets (so if, in the extraction sheet you say you did the extraction on 01/06/2021, then on the tiling pcr sheet, you have to put that same date for that sample.
 
-## Unit Tests
+# Unit Tests
 
-# Setup
-You need to install the following dependencies:
-pytest
-pytest-mock
-using the following command
-pip install pytest
-pip install pytest-mock
+# Setting Up Pytest for Unit Testing
+This section provides a step-by-step guide on how to set up Pytest for running unit tests in seqbox project and how to run those tests.
 
-Note: Ensure you are in a directory like this one /home/bkutambe/Documents/seqbox/seqbox/unit_tests
-
-The following section outlines the unit tests we can run on the codebase.We have four categories and they are .....
+## Installation
+Install the following dependencies:
+`pip install pytest`
+`pip install pytest-mock`
 
 
-#Category1: Check functionality
-Testing for functions that check the validity of input data before we add it to the database.
+**Note**: Ensure you are in a directory like this one */home/bkutambe/Documents/seqbox/seqbox/unit_tests*
+
+The following section outlines the unit tests we can run on the codebase.We have four categories and they are:
+
+1. Check tests.
+2. Get tests
+3. Add tests.
+
+**Note**: All tests pertaining to a specific category are contained within a dedicated Python script for that category.For example all the tests under the category 1,**check tests** are in this script **test_check_fxns.py** in the unit_tests directory
+
+#Category1: Check Tests
+In seqbox_utils.py we have functions like *check_sample_source_associated_with_project* which 
+check the validity of input data before we add it to the database.
 These tests can be run using the following command:
-pytest test_check_fxns.py
+`pytest test_check_fxns.py` for all the tests in **test_check_fxns.py**
 
-But for the individual tests use this command:
-pytest test_check_fxns.py::name_of_individual_test_function
+For the individual tests use this command:
+`pytest test_check_fxns.py::name_of_individual_test_function`
 
-But for the specific test functions that have a certain pattern use this command:
-pytest test_check_fxns.py -k pattern
+For specific test functions having a certain pattern use this command:
+`pytest test_check_fxns.py -k pattern`
 
-Note:All the tests in this module are in one category hence can not be divided into further groups
+**Note**:All the tests in this module are in one category hence can not be divided into further groups
 
 #Category2: Get functionality
 
