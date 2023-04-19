@@ -270,3 +270,32 @@ Then, finally (for the pre-bioinformatics section), the tiling PCR info. The sam
 I’ve attached a template for each sheet.
 
 I know it’s quite a lot, so happy to meet to discuss or help out in any other way. The date extracted and date pcred columns don’t have to be “true”, they just have to consistent between the sheets (so if, in the extraction sheet you say you did the extraction on 01/06/2021, then on the tiling pcr sheet, you have to put that same date for that sample.
+
+## Unit Tests
+
+# Setup
+You need to install the following dependencies:
+pytest
+pytest-mock
+using the following command
+pip install pytest
+pip install pytest-mock
+
+Note: Ensure you are in a directory like this one /home/bkutambe/Documents/seqbox/seqbox/unit_tests
+
+The following section outlines the unit tests we can run on the codebase.We have four categories and they are .....
+
+
+#Category1: Check functionality
+Testing for functions that check the validity of input data before we add it to the database.
+These tests can be run using the following command:
+pytest test_check_fxns.py
+
+But for the individual tests use this command:
+pytest test_check_fxns.py::name_of_individual_test_function
+
+But for the specific test functions that have a certain pattern use this command:
+pytest test_check_fxns.py -k pattern
+
+Note:All the tests in this module are in one category hence can not be divided into further groups
+
