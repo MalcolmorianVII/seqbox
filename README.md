@@ -286,7 +286,7 @@ pip install pytest-mock
 
 **Note**: Ensure you are in a directory like this one **/home/bkutambe/Documents/seqbox/seqbox/unit_tests**
 
-The following section outlines the unit tests we can run on the codebase.We have four categories and they are:
+We have three categories of unit tests we can run on the codebase:
 
 1. Check tests.
 2. Get tests
