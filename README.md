@@ -292,16 +292,17 @@ The following section outlines the unit tests we can run on the codebase.We have
 
 **Note**: All tests pertaining to a specific category are contained within a dedicated Python script for that category.For example all the tests under the category 1,**check tests** are in this script **test_check_fxns.py** in the unit_tests directory
 
-# Category 1: Check Tests
+# Category 1: Check Tests  
 In seqbox_utils.py we have functions like **check_sample_source_associated_with_project** which 
 check the validity of input data before we add it to the database.
-These tests can be run using the following command:
+
+These tests can be run using the following command:  
 `pytest test_check_fxns.py`  
 
-For the individual tests use this command:
+For the individual tests use this command:  
 `pytest test_check_fxns.py::name_of_individual_test_function`
 
-For specific test functions having a certain pattern use this command:
+For specific test functions having a certain pattern use this command:  
 `pytest test_check_fxns.py -k pattern`
 
 **Note**:All the tests in this module are in one category hence can not be divided into further groups
